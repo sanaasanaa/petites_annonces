@@ -1,4 +1,4 @@
-# Petites annoces
+# Petites annonces
 
 ## Description du projet ##
 
