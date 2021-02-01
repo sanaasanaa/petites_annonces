@@ -1,12 +1,17 @@
 <?php
+// appel du fichier connexion a la base de donnees
 require_once('conect.php');
 
+// instancie l'objet 
 $bd = getPdo();
 
+// selectionne les donnees dans la base pour dix annonces 
 $sql = 'SELECT * FROM annonce LIMIT 10';
 
+// requete des donnees
 $query = $bd->query($sql);
 
+// recupere les donnes sous forme de tableau 
 $rst = $query->fetchAll(PDO::FETCH_ASSOC);
 
 // var_dump($rst);

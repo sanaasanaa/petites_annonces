@@ -1,148 +1,45 @@
 <?php
+// appel du fichier ou se trouve la class et la connexion a la base de donnees
 require_once('annonce.php');
 
+// verifie s il y a un id et qu il n est pas vide
 if(isset($_GET['id']) && !empty($_GET['id'])){
 
-  $id=$_GET['id']; 
+//on nettoie l'ID envoyer tous les codes rajouter ils vont être supprimes
+$id = strip_tags($_GET['id']);
 
+// on instancie l:objet
 $annonce = new annonce;
+
+// appelle la methode pour afficher les detail de l annonce
 $annonce1 = $annonce->detail($id);
 
 }
 
-
+// verifie s il y a des donnees envoyees et qu elles sont pas nulles
 if (isset($_POST) && !empty($_POST)) {
 
+  // importation des images vers le fichier img
   $uploaddir = 'asset/img/';
-  // var_dump($_FILES);
   $uploadfile =  $uploaddir . basename($_FILES['photo']['name']);
   
   // mettre l'image dans un fichier temporaire 
-  
   if (move_uploaded_file(@$_FILES['photo']['tmp_name'], $uploadfile)) {
   
-  // echo  "<img src=$uploadfile>";
-  
-  // echo '<img src=' . $uploadfile . '>';
   
   } else {
   echo "Probleme avec ce fichier";
   }
-
+// recupere le id envoye
     $id=$_GET['id'];
+   
+// on met les donnees rentrees dans des variables
     $intitule=$_POST['intitule'];
     $prix=$_POST['prix'];
 
+  // appelle la methode pour modifier l annonce
     $annonce2 = $annonce->modif($uploadfile, $intitule, $prix, $id);
 }
-    
-
-
-
- //pour savoir si l'ID existe et si il est pas vide dans l'url
-
-//  if(isset($_GET['id']) && !empty($_GET['id'])){
-//     // importation du chemin fichier image 
-// $uploaddir = 'asset/img/';
-// // var_dump($_FILES);
-// $uploadfile =  $uploaddir . basename($_FILES['photo']['name']);
-
-// // mettre l'image dans un fichier temporaire 
-
-// if (move_uploaded_file(@$_FILES['photo']['tmp_name'], $uploadfile)) {
-
-// // echo  "<img src=$uploadfile>";
-
-// // echo '<img src=' . $uploadfile . '>';
-
-// } else {
-// echo "Probleme avec ce fichier";
-// }
-
-//   if (isset($_POST) && !empty($_POST)) {
-//     $id=$_GET['id'];
-//     $intitule=$_POST['intitule'];
-//     $prix=$_POST['prix'];
-    
-
-  
-  
-// $annonce = new annonce;
-
-// $annonce1 = $annonce->modif($id, $uploadfile, $intitule, $prix);
-
-//  }
-// }
-
-// //pour savoir si l'ID existe et si il est pas vide dans l'url
-
-// if(isset($_GET['id']) && !empty($_GET['id'])){
-//   require_once('conect.php');
-  
-//   //on nettoie l'ID envoyer tous les codes rajouter ils vont être supprimer
-//   $id = strip_tags($_GET['id']);
-  
-//   $bd = getPdo();
-  
-//   $sql = 'SELECT * FROM `annonce` WHERE `id` = :id;';
-  
-//   //on prepare la requete
-//   $query = $bd->prepare($sql);
-  
-//   //on accroche les paramètre (id) et constante de PDO pour savoir si entier
-//   $query->bindValue(':id', $id, PDO::PARAM_INT);
-  
-//   //on excute la requête
-//   $query->execute();
-  
-//   //on récupere le produit
-//   $rst= $query->fetch();
-
-//   }
-
-//  // importation du chemin fichier image 
-// $uploaddir = 'asset/img/';
-// // var_dump($_FILES);
-// $uploadfile =  $uploaddir . basename($_FILES['photo']['name']);
-
-// // mettre l'image dans un fichier temporaire 
-
-// if (move_uploaded_file(@$_FILES['photo']['tmp_name'], $uploadfile)) {
-
-// // echo  "<img src=$uploadfile>";
-
-// // echo '<img src=' . $uploadfile . '>';
-
-// } else {
-// echo "Probleme avec ce fichier";
-// }
-
-//   if (isset($_POST) && !empty($_POST)) {
-//     $id=$_GET['id'];
-//     $intitule=$_POST['intitule'];
-//     $prix=$_POST['prix'];
-    
-    
-  
-  
-//   require_once('conect.php'); 
-
-//     $bd = getPdo(); 
-  
-//     $sql = "UPDATE annonce SET photo=?, intitule=?, prix=? WHERE id=? ";
-    
-//     $query = $bd->prepare($sql);
-  
-//     $query->execute(array($uploadfile, $intitule, $prix, $id));
-  
-//   header('location:index.php');
-  
-  
-  
-  
-//   }
-  
-
 
 ?>
 
