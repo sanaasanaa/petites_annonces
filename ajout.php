@@ -9,9 +9,6 @@ if (isset($_POST) && !empty($_POST)) {
   $uploaddir = 'asset/img/';
   $uploadfile =  $uploaddir . basename($_FILES['photo']['name']);
 
-  echo $uploadfile;
-  echo '<pre>';
-
   // mettre l'image dans un fichier temporaire 
 
   if (move_uploaded_file(@$_FILES['photo']['tmp_name'], $uploadfile)) {
@@ -45,11 +42,6 @@ if (isset($_POST) && !empty($_POST)) {
 <body>
   <form action="#" method="post" enctype="multipart/form-data">
 
-    <!-- <legend>Ajouter une annonce</legend>
-      <div class="mb-3">
-        <label for="disabledTextInput" class="form-label">Email</label>
-        <input type="email" class="form-control" name="email">
-      </div> -->
     <div class="mb-3">
       <label for="formFileMultiple" class="form-label">Photo</label>
       <input class="form-control" type="file" name="photo">
